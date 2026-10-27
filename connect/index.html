@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect WHOOP · CoachKonnekt</title>
+<meta name="description" content="Connect your WHOOP account to your coach on CoachKonnekt.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/img/logo.svg" alt=""><img class="wm" src="/img/wordmark-white.svg" alt="CoachKonnekt"></a>
+  <nav class="links"><a class="btn" href="/dashboard/">Staff login</a></nav>
+</div></header>
+<main class="page">
+<p class="kicker">For athletes</p>
+<h1>Connect your <span>WHOOP</span></h1>
+<p>Your coach uses CoachKonnekt to plan training around how recovered you are. Connecting takes about a minute, and you don't need a CoachKonnekt account.</p>
+<ul class="checks">
+  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You sign in on WHOOP's own website. CoachKonnekt never sees your password.</span></li>
+  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Your coach sees your recovery, sleep, strain, workouts and body measurements. Nobody else does.</span></li>
+  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You can disconnect at any time in the WHOOP app, under connected apps.</span></li>
+</ul>
+<div class="panel" id="ready">
+  <p style="margin-bottom:20px">On the next screen, WHOOP will ask you to approve access for CoachKonnekt.</p>
+  <a class="btn" id="go" href="#">Connect WHOOP
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <p class="muted" style="margin:16px 0 0">By connecting, you agree to the <a href="/privacy/">privacy policy</a>.</p>
+</div>
+<div class="panel warn" id="nolink" hidden>
+  <p style="margin:0">This page needs your personal invite link. Please ask your coach to send you one.</p>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+  <span>© 2026 CoachKonnekt · <a href="mailto:contact@coachkonnekt.com">contact@coachkonnekt.com</a></span>
+  <span><a href="/privacy/">Privacy policy</a> · <a href="/dashboard/">Staff login</a> · Not affiliated with WHOOP, Inc.</span>
+</div></footer>
+<script>
+(function(){
+  var invite = new URLSearchParams(location.search).get('invite');
+  if (!invite) { document.getElementById('ready').hidden = true; document.getElementById('nolink').hidden = false; return; }
+  document.getElementById('go').href = 'https://qecbwvgftefrgeqghokr.supabase.co/functions/v1/whoop/connect?invite=' + encodeURIComponent(invite);
+})();
+</script>
+</body>
+</html>

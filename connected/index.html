@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connection · CoachKonnekt</title>
+<meta name="description" content="CoachKonnekt connection result.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/img/logo.svg" alt=""><img class="wm" src="/img/wordmark-white.svg" alt="CoachKonnekt"></a>
+  <nav class="links"><a class="btn" href="/dashboard/">Staff login</a></nav>
+</div></header>
+<main class="page">
+<div id="ok">
+  <p class="kicker">All set</p>
+  <h1>You're <span>connected</span><span id="who"></span></h1>
+  <p>Your WHOOP data will now reach your coach automatically each day. You don't need to do anything else.</p>
+  <p class="muted">To stop sharing, open the WHOOP app and remove CoachKonnekt from your connected apps, or email <a href="mailto:contact@coachkonnekt.com">contact@coachkonnekt.com</a>.</p>
+</div>
+<div id="fail" hidden>
+  <p class="kicker">Not connected</p>
+  <h1>Something <span>went wrong</span></h1>
+  <p id="why">The connection could not be completed.</p>
+  <p class="muted">Try the link from your coach again. If it keeps failing, email <a href="mailto:contact@coachkonnekt.com">contact@coachkonnekt.com</a> and mention this code: <code id="code"></code></p>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+  <span>© 2026 CoachKonnekt · <a href="mailto:contact@coachkonnekt.com">contact@coachkonnekt.com</a></span>
+  <span><a href="/privacy/">Privacy policy</a> · <a href="/dashboard/">Staff login</a> · Not affiliated with WHOOP, Inc.</span>
+</div></footer>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search), err = q.get('error'), name = q.get('name');
+  var reasons = {
+    access_denied: 'You chose not to give CoachKonnekt access, so nothing was shared.',
+    invalid_link: 'This link is not valid. Please ask your coach for a new invite link.',
+    invite_invalid: 'This invite link is not valid. Please ask your coach for a new one.',
+    invite_used: 'This invite link has already been used. Each link works only once, so please ask your coach for a new one.',
+    invite_expired: 'This invite link has expired. Links are valid for 2 days, so please ask your coach for a new one.',
+    invite_cancelled: 'This invite link was cancelled by your coach. Please ask them for a new one.',
+    link_expired: 'The sign-in took too long or was already used. Please open your invite link again.',
+    missing_code: 'WHOOP did not complete the sign-in. Please open your invite link again.',
+    server: 'CoachKonnekt had a problem saving your connection.'
+  };
+  if (err) {
+    document.getElementById('ok').hidden = true;
+    document.getElementById('fail').hidden = false;
+    document.getElementById('why').textContent = reasons[err] || 'The connection could not be completed.';
+    document.getElementById('code').textContent = err;
+  } else if (name) {
+    document.getElementById('who').textContent = ', ' + name;
+  }
+})();
+</script>
+</body>
+</html>
